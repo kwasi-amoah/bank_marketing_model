@@ -62,7 +62,8 @@ def predict():
 if __name__ == '__main__':
     import os
     os.environ['FLASK_ENV'] = 'development'
-    app.run(debug=True, use_reloader=False)
+    port = int(os.environ.get('PORT', 5000))  # Use PORT from environment if available
+    app.run(host='0.0.0.0', port=port)
 
 
 # In[ ]:
