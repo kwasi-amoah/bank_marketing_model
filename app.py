@@ -72,7 +72,7 @@ if uploaded_file is not None:
         
         # Display predictions
         st.write("### Predictions")
-        st.dataframe(pred_df)
+        st.write(pred_df)
 
         
 
