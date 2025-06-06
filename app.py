@@ -62,8 +62,10 @@ if uploaded_file is not None:
         st.dataframe(processed_df)
 
         preds = model.predict(processed_df)
+        # Map predictions to labels
+        labels = ["yes" if pred == 1 else "no" for pred in preds]
         st.write("### Predictions")
-        st.write(preds)
+        st.write(labels)
 
 
 # In[ ]:
