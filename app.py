@@ -61,9 +61,7 @@ if uploaded_file is not None:
         st.write("### Processed Data")
         st.dataframe(processed_df)
 
-        preds = model.predict(processed_df)
-        st.write("### Predictions")
-        st.write(preds)
+       
         
 
         
