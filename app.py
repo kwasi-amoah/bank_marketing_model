@@ -65,7 +65,7 @@ if uploaded_file is not None:
         # Map predictions to labels
         labels = ["yes" if pred == 1 else "no" for pred in preds]
         st.write("### Predictions")
-        st.write(labels)
+        st.dataframe(labels)
 
 
 # In[ ]:
