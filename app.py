@@ -14,8 +14,8 @@ import numpy as np
 
 
 # Load model and columns list
-model = joblib.load("C:/Users/User/Desktop/data 1 (4) (1)/data/bank_marketing_model/model/xgb_model.pkl")
-required_columns = joblib.load("C:/Users/User/Desktop/data 1 (4) (1)/data/bank_marketing_model/model/model_columns.pkl")  # same as inside preprocess_input
+model = joblib.load("xgb_model.pkl")
+required_columns = joblib.load("model_columns.pkl")  # same as inside preprocess_input
 
 def preprocess_input(df):
     # Feature engineering
