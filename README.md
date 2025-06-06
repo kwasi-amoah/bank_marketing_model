@@ -9,6 +9,6 @@ This repository contains a Streamlit web application that predicts whether a cli
 - `model_columns.pkl` — List of model input features used during training.
 - `requirements.txt` — List of Python packages required to run the app.
 - `data_processing.ipynb` — Jupyter notebook containing data cleaning, feature engineering, and model training steps.
-- `model_report.pdf` — A report summarizing the model performance and insights.
+- `Report.pdf` — A report summarizing the model performance and insights.
   
 ---
