@@ -71,9 +71,7 @@ if uploaded_file is not None:
         pred_df = pd.DataFrame(labels, columns=["predicted y"])
         st.dataframe(pred_df, hide_index=True)
 
-        # Display predictions
-        st.write("### Predictions")
-        st.dataframe(pred_df)
+        
 
 
 
