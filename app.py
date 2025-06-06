@@ -61,6 +61,21 @@ if uploaded_file is not None:
         st.write("### Processed Data")
         st.dataframe(processed_df)
 
+        
+        # Predict
+        preds = model.predict(processed_df)
+
+        # Map 1 -> 'yes', 0 -> 'no'
+        labels = ["yes" if pred == 1 else "no" for pred in preds]
+        
+        # Create DataFrame with column name 'predicted y'
+        pred_df = pd.DataFrame(labels, columns=["predicted y"])
+        
+        # Show the labeled predictions
+        st.write("### Predictions")
+        st.dataframe(pred_df)
+
+
        
         
 
