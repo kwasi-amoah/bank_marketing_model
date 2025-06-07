@@ -1,21 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import joblib
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-
-# In[2]:
-
-
-# Load model and columns list
+# Load model and required columns
 model = joblib.load("xgb_model.pkl")
-required_columns = joblib.load("model_columns.pkl")  # same as inside preprocess_input
+required_columns = joblib.load("model_columns.pkl")
 
 def preprocess_input(df):
     # Feature engineering
@@ -36,54 +29,33 @@ def preprocess_input(df):
     categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
     df = pd.get_dummies(df, columns=['duration_category'] + categorical_cols, drop_first=True)
 
-    # Align columns with training data
+    # Align with training columns
     for col in required_columns:
         if col not in df.columns:
-            df[col] = 0  # Add missing dummy columns
-    df = df[required_columns]  # Ensure correct order
+            df[col] = 0
+    df = df[required_columns]
 
     return df
 
-st.title("XGBoost Model Prediction with Preprocessing")
+# Streamlit UI
+st.title("Bank Marketing Campaign Prediction App")
 
-uploaded_file = st.file_uploader("Upload a CSV file with input data", type=["csv"])  
+uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])  
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, sep=';')
-    st.write("Parsed Data:")
-    st.dataframe(df)
-
     try:
-        processed_df = preprocess_input(df)
-    except Exception as e:
-        st.error(f"Preprocessing failed: {e}")
-    else:
-        st.write("### Processed Data")
-        st.dataframe(processed_df)
+        input_df = pd.read_csv(uploaded_file, sep=';')
+        processed_df = preprocess_input(input_df.copy())
+        predictions = model.predict(processed_df)
 
-        # Predict
-        preds = model.predict(processed_df)
+        # Map 0/1 to "no"/"yes"
+        prediction_labels = ["yes" if p == 1 else "no" for p in predictions]
 
-        # Map 1 -> 'yes', 0 -> 'no'
-        labels = ["yes" if pred == 1 else "no" for pred in preds]
-        
-        # Create DataFrame with column name 'predicted y'
-        pred_df = pd.DataFrame(labels, columns=["predicted y"])
-        
-        # Show the labeled predictions
+        # Append predictions to original input DataFrame
+        input_df["predicted y"] = prediction_labels
+
         st.write("### Predictions")
-        st.dataframe(pred_df)
+        st.dataframe(input_df)
 
-
-       
-        
-
-        
-
-
-
-# In[ ]:
-
-
-
-
+    except Exception as e:
+        st.error(f"Error: {e}")
