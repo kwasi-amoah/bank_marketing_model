@@ -45,13 +45,18 @@ uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 if uploaded_file is not None:
     try:
         input_df = pd.read_csv(uploaded_file, sep=';')
+
+        # Drop original 'y' column if present to show only predicted yas will happen in real use case
+        if 'y' in input_df.columns:
+            input_df = input_df.drop(columns=['y'])
+
         processed_df = preprocess_input(input_df.copy())
         predictions = model.predict(processed_df)
 
         # Map 0/1 to "no"/"yes"
         prediction_labels = ["yes" if p == 1 else "no" for p in predictions]
 
-        # Append predictions to original input DataFrame
+        # Add predictions
         input_df["predicted y"] = prediction_labels
 
         st.write("### Predictions")
