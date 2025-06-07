@@ -4,7 +4,7 @@ This repository contains a Streamlit web application that predicts whether a cli
 
 ## 📂 Repository Contents
 
-- `app.py` — The main Streamlit app for uploading data and generating predictions.
+- `app.py` — The main Streamlit app for uploading data and generating predictions. This generates a dataframe with the appended predictions as "predicted y".
 - `xgb_model.pkl` — The trained XGBoost model.
 - `model_columns.pkl` — List of model input features used during training.
 - `requirements.txt` — List of Python packages required to run the app.
