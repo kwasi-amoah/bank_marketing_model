@@ -60,7 +60,7 @@ if uploaded_file is not None:
         input_df["predicted y"] = prediction_labels
 
         st.write("### Client Term Deposit Subscription Predictions")
-        st.dataframe(input_df.reset_index(drop=True))
+        st.dataframe(input_df)
 
     except Exception as e:
         st.error(f"Error: {e}")
